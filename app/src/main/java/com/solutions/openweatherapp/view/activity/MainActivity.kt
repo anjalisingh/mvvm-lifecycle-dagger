@@ -5,38 +5,34 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.NavigationView
-import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
-import android.support.v4.view.GravityCompat
-import android.support.v7.app.ActionBarDrawerToggle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
-import com.solutions.openweatherapp.R
-import com.solutions.openweatherapp.model.CityModel
-import dagger.android.AndroidInjection
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.support.HasSupportFragmentInjector
-import kotlinx.android.synthetic.main.app_bar_main.*
-import javax.inject.Inject
 import android.widget.ArrayAdapter
 import co.realpost.android.common.persistance.UPSharedPrefs
+import com.solutions.openweatherapp.R
 import com.solutions.openweatherapp.common.ui.BaseActivity
+import com.solutions.openweatherapp.model.CityModel
 import com.solutions.openweatherapp.ui.fragment.ForecastWeatherFragment
 import com.solutions.openweatherapp.ui.fragment.MapFragment
 import com.solutions.openweatherapp.ui.fragment.NowFragment
 import com.solutions.openweatherapp.ui.fragment.TabsFragment
 import com.solutions.openweatherapp.view.activity.FavoriteLocationActivity
 import com.solutions.openweatherapp.viewmodel.MainViewModel
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.nav_header_main.view.*
+import dagger.android.AndroidInjection
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.support.HasSupportFragmentInjector
+import kotlinx.android.synthetic.main.app_bar_main.spNavigation
+import javax.inject.Inject
 
-class MainActivity : BaseActivity(), HasSupportFragmentInjector ,  NavigationView.OnNavigationItemSelectedListener,
+class MainActivity : BaseActivity(), HasSupportFragmentInjector,
     AdapterView.OnItemSelectedListener, MapFragment.MapListener, NowFragment.NowListener, ForecastWeatherFragment.ForecastWeatherListener {
 
     companion object {
         var currentLocation = "Singapore"
+        val ACTION_ADD_CITY = 200
     }
 
     @Inject lateinit var sharedPrefs : UPSharedPrefs
@@ -46,7 +42,6 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector ,  NavigationVie
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         currentLocation = parent?.getItemAtPosition(position).toString()
-        nav_view?.tvCityName?.text = currentLocation.capitalize()
         sharedPrefs.setPermanentPrefsStringValue(getString(R.string.key_current_city), currentLocation)
         refreshTabs()
     }
@@ -82,16 +77,11 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector ,  NavigationVie
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel : MainViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+  private var spinnerListItems = ArrayList<String>()
+  private var originalItems = HashMap<String, String>()
+
+  override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val toggle = ActionBarDrawerToggle(
-            this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
-        )
-        drawer_layout.addDrawerListener(toggle)
-        toggle.syncState()
-
-        nav_view.setNavigationItemSelectedListener(this)
 
         AndroidInjection.inject(this)
         if (savedInstanceState == null) {
@@ -100,13 +90,7 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector ,  NavigationVie
                 .commitAllowingStateLoss()
         }
 
-        val sharedPrefLocation = sharedPrefs?.getPermanentPrefsStringValue(getString(R.string.key_current_city))
         spNavigation.onItemSelectedListener = this
-
-        tvSearchCity.setOnClickListener {
-            val intent = Intent(this, FavoriteLocationActivity::class.java)
-            startActivity(intent)
-        }
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
 
@@ -118,31 +102,51 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector ,  NavigationVie
                         if(it.isEmpty()) {
                             // add default location as Singapore if empty
                             sharedPrefs.setPermanentPrefsStringValue(getString(R.string.key_current_city), currentLocation)
-                            viewModel.saveCity(CityModel(currentLocation))
+                            viewModel.saveCity(CityModel(currentLocation?.toLowerCase()))
                         }
 
-                        var listItems = ArrayList<String>()
-                        it.toMutableList()
-                            ?.filter {
-                                listItems.add(it?.name?.capitalize())
-                            }
-                        val dataAdapter = ArrayAdapter<String>(this, R.layout.spinner_item, listItems)
-                        dataAdapter.setDropDownViewResource(R.layout.spinner_item)
-                        spNavigation.adapter = dataAdapter
-                        spNavigation?.setSelection(dataAdapter.getPosition(sharedPrefLocation))
+                          spinnerListItems.clear()
+                          originalItems.clear()
+                          it.toMutableList()
+                                  ?.filter {
+                                    originalItems[it?.name?.toLowerCase()] = it?.name?.capitalize()
+                                    spinnerListItems.add(it?.name?.capitalize())
+                                  }
+                          val dataAdapter = ArrayAdapter<String>(this, R.layout.spinner_item, spinnerListItems)
+                          dataAdapter.setDropDownViewResource(R.layout.spinner_item)
+                          spNavigation.adapter = dataAdapter
+                          spNavigation?.setSelection(dataAdapter.getPosition(originalItems[currentLocation]))
                     }
                 })
 
     }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
+  override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    menuInflater.inflate(R.menu.menu_main, menu)
+    return true
+  }
 
-        drawer_layout.closeDrawer(GravityCompat.START)
-        return true
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    if (item.itemId == R.id.search) {
+      val intent = Intent(this, FavoriteLocationActivity::class.java)
+      startActivityForResult(intent, ACTION_ADD_CITY)
+      return true
     }
 
-    override fun onNowFragmentAttached() {
+    return false
+  }
+
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+    if(requestCode == ACTION_ADD_CITY) {
+      currentLocation = sharedPrefs?.getPermanentPrefsStringValue(getString(R.string.key_current_city))!!
+      refreshTabs()
+    }
+
+    super.onActivityResult(requestCode, resultCode, data)
+  }
+
+  override fun onNowFragmentAttached() {
         if(getFragmentRefreshListener() != null) {
             getFragmentRefreshListener()?.onReloadTab(TabsFragment.Tab.NOW)
         }

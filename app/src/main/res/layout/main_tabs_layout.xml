@@ -1,10 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                            android:orientation="vertical"
-                                             xmlns:tools="http://schemas.android.com/tools"
->
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
 
     <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
@@ -24,6 +24,21 @@
             tools:fontName="@string/font_name_semibold"
             tools:ignore="UnusedAttribute"
     />
+
+
+    <TextView
+        android:id="@+id/tvError"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="@color/errorColor"
+        tools:text="City not found"
+        android:maxLines="2"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        tools:fontName="@string/font_name_semibold"/>
 
     <android.support.v4.view.ViewPager
             android:id="@+id/viewpager"

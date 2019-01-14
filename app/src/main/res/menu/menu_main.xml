@@ -2,8 +2,8 @@
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="com.solutions.openweatherapp.MainActivity">
-    <item android:id="@+id/action_settings"
-          android:title="@string/action_settings"
-          android:orderInCategory="100"
-          app:showAsAction="never"/>
+    <item android:id="@+id/search"
+            android:icon="@drawable/ic_add"
+          android:title="Search city"
+          app:showAsAction="always"/>
 </menu>

@@ -11,11 +11,12 @@
                   android:layout_height="match_parent"
                   android:orientation="vertical"
     android:weightSum="2">
-        
+
         <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+            android:id="@+id/container"
         android:paddingTop="16dp">
 
             <TextView
@@ -58,7 +59,6 @@
                     android:minHeight="100dp"
                     android:minWidth="100dp"
                     android:scaleType="fitXY"
-                    app:srcCompat="@drawable/placeholder_cloud"
             />
 
             <TextView

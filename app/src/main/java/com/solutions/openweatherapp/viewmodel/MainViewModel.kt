@@ -142,7 +142,7 @@ constructor(
         }
     }
 
-    fun getWeatherCycleVM(): CitiesModel {
+    fun getWeatherCycleVM(): CitiesModel? {
         return weatherMap
     }
 

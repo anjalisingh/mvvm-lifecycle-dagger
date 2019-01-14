@@ -21,6 +21,7 @@ import com.solutions.openweatherapp.ui.adapter.ViewPagerAdapter
 import com.solutions.openweatherapp.view.MainActivity
 import com.solutions.openweatherapp.view.fragment.AppFragment
 import com.solutions.openweatherapp.viewmodel.MainViewModel
+import kotlinx.android.synthetic.main.main_tabs_layout.tvError
 import javax.inject.Inject
 
 /**
@@ -101,14 +102,23 @@ class TabsFragment : AppFragment(){
                             Log.d(NowFragment.TAG,resource.data.toString() )
                             viewModel?.setWeatherVM(resource?.data)
                             refreshTab(Tab.NOW)
+
+                            viewPager?.visibility = View.VISIBLE
+                            tvError?.visibility = View.GONE
                         }
 
                         Resource.Status.RETROFIT_ERROR -> {
-                            Toast.makeText(context, viewModel?.getExceptionMessage(resource?.exception), Toast.LENGTH_LONG).show()
+//                            Toast.makeText(context, viewModel?.getExceptionMessage(resource?.exception), Toast.LENGTH_LONG).show()
+                            tvError?.text = viewModel?.getExceptionMessage(resource?.exception)
+                            viewPager?.visibility = View.GONE
+                            tvError?.visibility = View.VISIBLE
                         }
 
                         Resource.Status.ERROR -> {
-                            Toast.makeText(context, viewModel?.getErrorMessage(resource?.error), Toast.LENGTH_LONG).show()
+//                            Toast.makeText(context, viewModel?.getErrorMessage(resource?.error), Toast.LENGTH_LONG).show()
+                            tvError?.text = viewModel?.getErrorMessage(resource?.error)
+                            viewPager?.visibility = View.GONE
+                            tvError?.visibility = View.VISIBLE
                         }
 
                     }
