@@ -7,7 +7,7 @@
     <string name="nav_header_title">Singapore</string>
 
     <string name="api_key">245019f0c5556a7904e38b49589c6ae5</string>
-    <string name="base_url">http://api.openweathermap.org</string>
+    <string name="base_url">https//api.openweathermap.org</string>
 
     <string name="temp_range">%s&#xb0;C min - %s&#xb0;C max</string>
     <string name="min_temp">Minimum Temperature : %s&#xb0;C</string>
