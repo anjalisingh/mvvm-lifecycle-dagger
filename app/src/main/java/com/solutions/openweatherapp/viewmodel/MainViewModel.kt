@@ -106,7 +106,7 @@ constructor(
                 errorResponse?.errorMessage?.apply { errorMessage = this }
             } else if (error.kind == RetrofitException.Kind.NETWORK) {
                 Log.e("Error response %s", error.localizedMessage)
-                errorMessage = "We\\'re having trouble connecting to our servers. Please check your connection and try again."
+                errorMessage = "We're having trouble connecting to our servers. Please check your connection and try again."
             } else if(error.kind != null) {
                 errorMessage = error?.localizedMessage
             }

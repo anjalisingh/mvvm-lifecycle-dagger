@@ -25,7 +25,6 @@
             tools:ignore="UnusedAttribute"
     />
 
-
     <TextView
         android:id="@+id/tvError"
         android:visibility="gone"
@@ -34,9 +33,9 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:textSize="20sp"
+        android:padding="24dp"
         android:textColor="@color/errorColor"
         tools:text="City not found"
-        android:maxLines="2"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         tools:fontName="@string/font_name_semibold"/>
 

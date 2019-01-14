@@ -31,7 +31,7 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector,
     AdapterView.OnItemSelectedListener, MapFragment.MapListener, NowFragment.NowListener, ForecastWeatherFragment.ForecastWeatherListener {
 
     companion object {
-        var currentLocation = "Singapore"
+        var currentLocation = "singapore"
         val ACTION_ADD_CITY = 200
     }
 
@@ -39,13 +39,6 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector,
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
     }
-
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        currentLocation = parent?.getItemAtPosition(position).toString()
-        sharedPrefs.setPermanentPrefsStringValue(getString(R.string.key_current_city), currentLocation)
-        refreshTabs()
-    }
-
     private fun refreshTabs() {
         if(getFragmentRefreshListener() != null) {
             getFragmentRefreshListener()?.onRefresh(currentLocation)
@@ -79,6 +72,19 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector,
 
   private var spinnerListItems = ArrayList<String>()
   private var originalItems = HashMap<String, String>()
+
+  override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+    originalItems?.keys?.let {
+      for (key in it) {
+        if(originalItems[key] == parent?.getItemAtPosition(position)) {
+          currentLocation = key
+        }
+      }
+    }
+    sharedPrefs.setPermanentPrefsStringValue(getString(R.string.key_current_city), currentLocation)
+    refreshTabs()
+  }
+
 
   override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -35,7 +35,8 @@ class TabsFragment : AppFragment(){
         val TAG = "TabsFragment"
     }
 
-    private lateinit var viewPager : ViewPager
+    private var viewPager : ViewPager ?= null
+    private var tabLayout: TabLayout ?= null
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel : MainViewModel
@@ -48,9 +49,12 @@ class TabsFragment : AppFragment(){
 
         val layout = inflater.inflate(R.layout.main_tabs_layout, container, false)
 
-        val tabLayout  : TabLayout?= layout.findViewById(R.id.tabs)
-        viewPager = layout.findViewById(R.id.viewpager)
-        tabLayout?.setupWithViewPager(viewPager)
+        tabLayout = layout.findViewById(R.id.tabs)
+        viewPager = layout?.findViewById(R.id.viewpager)
+        viewPager?.let {
+          tabLayout?.setupWithViewPager(viewPager)
+        }
+
 
         (activity as MainActivity).setFragmentRefreshListener(object : MainActivity.FragmentRefreshListener {
             override fun onRefresh(location : String) {
@@ -104,6 +108,7 @@ class TabsFragment : AppFragment(){
                             refreshTab(Tab.NOW)
 
                             viewPager?.visibility = View.VISIBLE
+                            tabLayout?.visibility = View.VISIBLE
                             tvError?.visibility = View.GONE
                         }
 
@@ -111,13 +116,15 @@ class TabsFragment : AppFragment(){
 //                            Toast.makeText(context, viewModel?.getExceptionMessage(resource?.exception), Toast.LENGTH_LONG).show()
                             tvError?.text = viewModel?.getExceptionMessage(resource?.exception)
                             viewPager?.visibility = View.GONE
-                            tvError?.visibility = View.VISIBLE
+                          tabLayout?.visibility = View.GONE
+                          tvError?.visibility = View.VISIBLE
                         }
 
                         Resource.Status.ERROR -> {
 //                            Toast.makeText(context, viewModel?.getErrorMessage(resource?.error), Toast.LENGTH_LONG).show()
                             tvError?.text = viewModel?.getErrorMessage(resource?.error)
                             viewPager?.visibility = View.GONE
+                            tabLayout?.visibility = View.GONE
                             tvError?.visibility = View.VISIBLE
                         }
 
