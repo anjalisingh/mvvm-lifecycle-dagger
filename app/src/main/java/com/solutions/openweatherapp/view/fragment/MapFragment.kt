@@ -1,7 +1,9 @@
 package com.solutions.openweatherapp.ui.fragment
 
 import android.content.Context
+import android.content.res.Resources
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.solutions.openweatherapp.R
@@ -87,8 +90,23 @@ class MapFragment : AppFragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickLi
             previousMarker = null
 
         }
-
         googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 11.0f))
+        try {
+            // Customize the styling of the base map using a JSON object defined
+            // in a raw resource file.
+            val success = googleMap.setMapStyle(
+                MapStyleOptions.loadRawResourceStyle(
+                    activity, R.raw.map_style
+                )
+            )
+
+            if (!success) {
+                Log.e(TAG, "Style parsing failed.")
+            }
+        } catch (e: Resources.NotFoundException) {
+            Log.e(TAG, "Can't find style. Error: ", e)
+        }
+
         this.googleMap = googleMap
         mCallback?.onMapReady()
     }
