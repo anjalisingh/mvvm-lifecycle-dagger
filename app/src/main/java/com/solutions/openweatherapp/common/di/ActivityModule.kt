@@ -11,10 +11,9 @@ import dagger.android.ContributesAndroidInjector
 
 @Module
 abstract class ActivityModule {
-    @ContributesAndroidInjector()
+    @ContributesAndroidInjector(modules = arrayOf(FragmentModule::class))
     abstract fun contributeMainActivity(): MainActivity
 
-
-    @ContributesAndroidInjector()
+    @ContributesAndroidInjector(modules = arrayOf(FragmentModule::class))
     abstract fun contributeFavoriteLocation() : FavoriteLocationActivity
 }

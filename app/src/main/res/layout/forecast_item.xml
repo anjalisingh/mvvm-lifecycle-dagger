@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:minHeight="100dp"
+                                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                                    xmlns:custom="http://schemas.android.com/tools"
+                                    android:layout_margin="8dp"
+                                    app:cardBackgroundColor="@color/transparent_light_blue"
+                                    app:cardCornerRadius="10dp"
+                                    app:cardElevation="4dp">
+
+
+    <ImageView
+            android:src="@drawable/bg_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"/>
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+    android:padding="16dp">
+
+        <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                android:paddingTop="8dp"
+                android:textSize="18sp"
+                android:textColor="@color/text_color_white"
+                custom:text="Jan 15th"
+                android:ellipsize="end"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                custom:fontName="@string/font_name_semibold"/>
+
+        <TextView
+                android:id="@+id/tvTemperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDate"
+                app:layout_constraintLeft_toRightOf="@+id/tvDate"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintHorizontal_bias="1"
+                android:layout_marginLeft="8dp"
+                android:padding="8dp"
+                android:textSize="18sp"
+                android:textColor="@color/text_color_white"
+                custom:text="50&#xb0;C min - 19&#xb0;C max"
+                android:ellipsize="end"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                custom:fontName="@string/font_name_semibold"/>
+
+
+        <ImageView
+                android:id="@+id/ivIcon"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTemperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="80dp"
+                android:minWidth="80dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/img"
+        />
+
+        <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintLeft_toRightOf="@+id/tvCityName"
+                app:layout_constraintTop_toBottomOf="@+id/ivIcon"
+                android:textSize="16sp"
+                android:textColor="@color/text_color_white"
+                android:layout_marginLeft="24dp"
+                android:paddingRight="16dp"
+                custom:text="drizzle"
+                android:maxLines="2"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                custom:fontName="@string/font_name_semibold"/>
+
+        <TextView
+                android:id="@+id/tvPressure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintTop_toBottomOf="@+id/tvDate"
+                android:layout_marginTop="8dp"
+                android:textSize="12sp"
+                android:textColor="@color/text_color_white"
+                custom:text="Pressure : 133mmH "
+                android:maxLines="2"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                custom:fontName="@string/font_name_semibold"/>
+
+        <TextView
+                android:id="@+id/tvHumidity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintTop_toBottomOf="@+id/tvPressure"
+                android:layout_marginTop="8dp"
+                android:textSize="12sp"
+                android:textColor="@color/text_color_white"
+                custom:text="Humidity : 133mmH "
+                android:maxLines="2"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                custom:fontName="@string/font_name_semibold"/>
+
+        <TextView
+            android:id="@+id/tvSpeed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintTop_toBottomOf="@+id/tvHumidity"
+            android:layout_marginTop="8dp"
+            android:textSize="12sp"
+            android:textColor="@color/text_color_white"
+            custom:text="Wind speed : 123 df"
+            android:maxLines="2"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            custom:fontName="@string/font_name_semibold"/>
+
+        <TextView
+                android:id="@+id/tvClouds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintTop_toBottomOf="@+id/tvSpeed"
+                android:layout_marginTop="8dp"
+                android:textSize="12sp"
+                android:textColor="@color/text_color_white"
+                custom:text="Cloudiness: 123%"
+                android:maxLines="2"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                custom:fontName="@string/font_name_semibold"/>
+
+        <TextView
+                android:id="@+id/tvSnow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintTop_toBottomOf="@+id/tvClouds"
+                android:layout_marginTop="8dp"
+                android:textSize="12sp"
+                android:textColor="@color/text_color_white"
+                custom:text="Snow : 123 df"
+                android:maxLines="2"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                custom:fontName="@string/font_name_semibold"/>
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>

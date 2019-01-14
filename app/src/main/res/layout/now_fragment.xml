@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:custom="http://schemas.android.com/tools"
+             android:background="@drawable/bg_1"
+             android:padding="16dp">
+
+    <LinearLayout android:layout_width="match_parent" 
+                  android:layout_height="match_parent"
+                  android:orientation="vertical"
+    android:weightSum="2">
+        
+        <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+        android:paddingTop="16dp">
+
+            <TextView
+                    android:id="@+id/tvTemperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    android:paddingTop="8dp"
+                    android:textSize="50sp"
+                    android:textColor="@color/text_color_white"
+                    custom:text="50&#xb0;C"
+                    android:ellipsize="end"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    custom:fontName="@string/font_name_semibold"/>
+
+            <TextView
+                    android:id="@+id/tvCityName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTemperature"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintHorizontal_bias="1"
+                    android:paddingTop="8dp"
+                    android:textSize="30sp"
+                    android:textColor="@color/white_translucent"
+                    custom:text="Singapore"
+                    android:ellipsize="end"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    custom:fontName="@string/font_name_semibold"/>
+
+            <ImageView
+                    android:id="@+id/ivIcon"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="100dp"
+                    android:minWidth="100dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/placeholder_cloud"
+            />
+
+            <TextView
+                    android:id="@+id/tvDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintHorizontal_bias="1"
+                    app:layout_constraintLeft_toRightOf="@+id/tvCityName"
+                    app:layout_constraintTop_toBottomOf="@+id/ivIcon"
+                    android:textSize="20sp"
+                    android:textColor="@color/text_color_white"
+                    android:layout_marginLeft="24dp"
+                    custom:text="light intensity drizzle"
+                    android:maxLines="2"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    custom:fontName="@string/font_name_semibold"/>
+        </android.support.constraint.ConstraintLayout>
+    
+        <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+        android:layout_weight="1">
+
+
+
+            <TextView
+                    android:id="@+id/tvMinTemperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    android:layout_marginTop="40dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_color_white"
+                    custom:text="Minimum temperature : 133mmH "
+                    android:maxLines="2"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    custom:fontName="@string/font_name_semibold"/>
+
+            <TextView
+                    android:id="@+id/tvMaxTemperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintTop_toBottomOf="@+id/tvMinTemperature"
+                    android:layout_marginTop="12dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_color_white"
+                    custom:text="Maximum temperature : 133mmH "
+                    android:maxLines="2"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    custom:fontName="@string/font_name_semibold"/>
+
+            <TextView
+                    android:id="@+id/tvPressure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintTop_toBottomOf="@+id/tvMaxTemperature"
+                    android:layout_marginTop="12dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_color_white"
+                    custom:text="Pressure : 133mmH "
+                    android:maxLines="2"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    custom:fontName="@string/font_name_semibold"/>
+
+            <TextView
+                    android:id="@+id/tvHumidity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPressure"
+                    android:layout_marginTop="12dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_color_white"
+                    custom:text="Humidity : 133mmH "
+                    android:maxLines="2"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    custom:fontName="@string/font_name_semibold"/>
+
+            <TextView
+                    android:id="@+id/tvLastUpdated"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHumidity"
+                    android:layout_marginTop="12dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_color_white"
+                    custom:text="Last Updated : 1/33/1232"
+                    android:maxLines="2"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    custom:fontName="@string/font_name_semibold"/>
+
+        </android.support.constraint.ConstraintLayout>
+        
+    </LinearLayout>
+    
+</FrameLayout>

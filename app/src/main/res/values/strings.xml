@@ -9,6 +9,24 @@
     <string name="api_key">245019f0c5556a7904e38b49589c6ae5</string>
     <string name="base_url">http://api.openweathermap.org</string>
 
+    <string name="temp_range">%s&#xb0;C min - %s&#xb0;C max</string>
+    <string name="min_temp">Minimum Temperature : %s&#xb0;C</string>
+    <string name="max_temp">Maximum Temperature : %s&#xb0;C</string>
+    <string name="morn_temp">Morning Temperature : %s&#xb0;C</string>
+    <string name="night_temp">Night Temperature : %s&#xb0;C</string>
+    <string name="pressure">Pressure : %s hPa</string>
+    <string name="last_updated">Last Updated : %s</string>
+    <string name="humidity">Humidity : %s </string>
+    <string name="precipitation">Precipitation : %s mm</string>
+    <string name="visibility">Visibility : % meter</string>
+    <string name="windspeed">Wind Speed : %s mps</string>
+    <string name="cloudiness">Cloudiness : %s </string>
+    <string name="rain">Rain : %s mm</string>
+    <string name="snow">Snow : %s mm</string>
+    <string name="icon_url">http://openweathermap.org/img/w/%s.png</string>
+    <string name="please_check_your_connection">We\'re having trouble connecting to our servers. Please check your connection and try again.</string>
+
+
     <!-- Shared Prefs -->
     <string name="key_current_city">key_current_city</string>
 </resources>

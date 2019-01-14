@@ -23,18 +23,49 @@ import javax.inject.Inject
 import android.widget.ArrayAdapter
 import co.realpost.android.common.persistance.UPSharedPrefs
 import com.solutions.openweatherapp.common.ui.BaseActivity
+import com.solutions.openweatherapp.ui.fragment.ForecastWeatherFragment
+import com.solutions.openweatherapp.ui.fragment.MapFragment
+import com.solutions.openweatherapp.ui.fragment.NowFragment
+import com.solutions.openweatherapp.ui.fragment.TabsFragment
 import com.solutions.openweatherapp.view.activity.FavoriteLocationActivity
 import com.solutions.openweatherapp.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 
-class MainActivity : BaseActivity(), HasSupportFragmentInjector ,  NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity(), HasSupportFragmentInjector ,  NavigationView.OnNavigationItemSelectedListener,
+    AdapterView.OnItemSelectedListener, MapFragment.MapListener, NowFragment.NowListener, ForecastWeatherFragment.ForecastWeatherListener {
 
     companion object {
         var currentLocation = "Singapore"
     }
 
     @Inject lateinit var sharedPrefs : UPSharedPrefs
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        currentLocation = parent?.getItemAtPosition(position).toString()
+        nav_view?.tvCityName?.text = currentLocation.capitalize()
+        sharedPrefs.setPermanentPrefsStringValue(getString(R.string.key_current_city), currentLocation)
+        refreshTabs()
+    }
+
+    private fun refreshTabs() {
+        if(getFragmentRefreshListener() != null) {
+            getFragmentRefreshListener()?.onRefresh(currentLocation)
+        }
+    }
+
+    private var fragmentRefreshListener: FragmentRefreshListener? = null
+
+    fun getFragmentRefreshListener(): FragmentRefreshListener? {
+        return fragmentRefreshListener
+    }
+
+    fun setFragmentRefreshListener(fragmentRefreshListener: FragmentRefreshListener?) {
+        this.fragmentRefreshListener = fragmentRefreshListener
+    }
 
     override val layoutResource: Int = R.layout.activity_main
     override val homeUpEnabled: Boolean = false
@@ -63,8 +94,14 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector ,  NavigationVie
         nav_view.setNavigationItemSelectedListener(this)
 
         AndroidInjection.inject(this)
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container, TabsFragment.newInstance())
+                .commitAllowingStateLoss()
+        }
 
         val sharedPrefLocation = sharedPrefs?.getPermanentPrefsStringValue(getString(R.string.key_current_city))
+        spNavigation.onItemSelectedListener = this
 
         tvSearchCity.setOnClickListener {
             val intent = Intent(this, FavoriteLocationActivity::class.java)
@@ -89,6 +126,10 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector ,  NavigationVie
                             ?.filter {
                                 listItems.add(it?.name?.capitalize())
                             }
+                        val dataAdapter = ArrayAdapter<String>(this, R.layout.spinner_item, listItems)
+                        dataAdapter.setDropDownViewResource(R.layout.spinner_item)
+                        spNavigation.adapter = dataAdapter
+                        spNavigation?.setSelection(dataAdapter.getPosition(sharedPrefLocation))
                     }
                 })
 
@@ -99,5 +140,28 @@ class MainActivity : BaseActivity(), HasSupportFragmentInjector ,  NavigationVie
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun onNowFragmentAttached() {
+        if(getFragmentRefreshListener() != null) {
+            getFragmentRefreshListener()?.onReloadTab(TabsFragment.Tab.NOW)
+        }
+    }
+
+    override fun onMapReady() {
+        if(getFragmentRefreshListener() != null) {
+            getFragmentRefreshListener()?.onReloadTab(TabsFragment.Tab.MAP)
+        }
+    }
+    override fun onForecastFragmentAttached() {
+        if(getFragmentRefreshListener() != null) {
+            getFragmentRefreshListener()?.onReloadTab(TabsFragment.Tab.FORECAST)
+        }
+    }
+
+    interface FragmentRefreshListener {
+        fun onRefresh(city : String)
+
+        fun onReloadTab(tab : TabsFragment.Tab)
     }
 }

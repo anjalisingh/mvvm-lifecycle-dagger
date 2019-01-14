@@ -19,6 +19,14 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBQXj2szi8pmq5rS1IMA_lRt1ErLyftv6I" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+
         <activity android:name=".view.MainActivity"
                   android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
