@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="60dp"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             android:background="@color/secondary_text_color"
+                                             xmlns:custom="http://schemas.android.com/tools">
+
+
+
+    <ImageView
+            android:id="@+id/ivDeleteCity"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:padding="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_delete"
+
+    />
+    <TextView
+            android:id="@+id/tvCityName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/ivDeleteCity"
+            app:layout_constraintHorizontal_bias="0"
+            android:padding="16dp"
+            android:textSize="16sp"
+            android:textColor="@color/primary_text_color"
+            android:text="Singapore"
+            android:ellipsize="end"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            custom:fontName="@string/font_name_semibold"/>
+
+</android.support.constraint.ConstraintLayout>
