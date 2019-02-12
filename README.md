@@ -1,6 +1,6 @@
 Sample demo illustrating use of MVVM , lifeycle architecture , Dagger2,  RxJava2, Room, Kotlin.
 
-Includes:
+Uses:
 - Kotlin
 - MVVM
 - Dagger
