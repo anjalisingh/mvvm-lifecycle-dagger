@@ -15,7 +15,7 @@ android {
     buildToolsVersion '28.0.3'
 
     defaultConfig {
-        applicationId "com.solutions.openweatherapp"
+        applicationId "com.solutions.mvvmlifeycledagger"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"

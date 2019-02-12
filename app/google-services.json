@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:712202320609:android:9afc5dea031756a5",
+        "mobilesdk_app_id": "1:712202320609:android:8493597cba345227",
         "android_client_info": {
-          "package_name": "com.solutions.openweatherapp"
+          "package_name": "com.solutions.mvvmlifeycledagger"
         }
       },
       "oauth_client": [
@@ -39,9 +39,9 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:712202320609:android:f3eceb455133a92a",
+        "mobilesdk_app_id": "1:712202320609:android:2f74df1b819003be",
         "android_client_info": {
-          "package_name": "com.solutions.openweatherapp.dev"
+          "package_name": "com.solutions.mvvmlifeycledagger.dev"
         }
       },
       "oauth_client": [
